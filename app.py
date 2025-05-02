@@ -11,8 +11,10 @@ import os
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'your-secret-key')
 
-# Initialize SocketIO
-socketio = SocketIO(app, cors_allowed_origins="*")
+# Initialize SocketIO with gevent
+socketio = SocketIO(app, 
+                   cors_allowed_origins="*",
+                   async_mode='gevent')
 
 # Create all tables
 Base.metadata.create_all(bind=engine)
